@@ -1,4 +1,4 @@
-# Shadows projection map from DEM
+# Calculation of shadows projection from a digital elevation map (DEM)
 # www.overfitting.net
 # https://www.overfitting.net/
 
