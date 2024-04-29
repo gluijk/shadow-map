@@ -198,7 +198,7 @@ image(t(hillshade[nrow(hillshade):1,]), useRaster=TRUE,
 
 #################################################
 
-# 3. GENERATE SHADOWS
+# 3. CALCULATE SHADOWS
 
 # Test all light source directions -> OK
 shadows=shadowsmap(DEM=sierra, dx=RESOLUTION, dlight=c(0, 40, 5))
@@ -214,15 +214,16 @@ shadows=shadowsmap(DEM=sierra, dx=RESOLUTION, dlight=c(-40, 0, 5))
 writePNG(shadows, "shadowsNORTH.png")
 
 
-# Ejemplo c(0, 30, 5)
+# Example c(0, 30, 5)
 shadows=shadowsmap(DEM=sierra, dx=RESOLUTION, dlight=c(0, 30, 5))
 writePNG(shadows, "shadows_5_30.png")
 
-# Rotación para ángulo arbitrario
+# Arbitrary angle rotationn with (0, 40, 5)
 sierra_rotated=readTIFF("sierra_rotated30.tif")
 sierra_rotated=sierra_rotated*ALTMAX  # restore height values
+
 shadows=shadowsmap(DEM=sierra_rotated, dx=RESOLUTION, dlight=c(0, 40, 5))
-writePNG(shadows, "sierra_rotated.png")
+writePNG(shadows, "shadows_rotated.png")
 
 hillshade=hillshademap(sierra_rotated, dx=RESOLUTION, dlight=c(0, 10, 5))
 writeTIFF(hillshade, "hillshade_rotated.tif", bits.per.sample=16, compression="LZW")
