@@ -214,11 +214,12 @@ shadows=shadowsmap(DEM=sierra, dx=RESOLUTION, dlight=c(-40, 0, 5))
 writePNG(shadows, "shadowsNORTH.png")
 
 
-# Example c(0, 30, 5)
+# Example with lighting direction c(0, 30, 5)
 shadows=shadowsmap(DEM=sierra, dx=RESOLUTION, dlight=c(0, 30, 5))
 writePNG(shadows, "shadows_5_30.png")
 
-# Arbitrary angle rotationn with (0, 40, 5)
+
+# Arbitrary angle rotation with lighting direction (0, 40, 5)
 sierra_rotated=readTIFF("sierra_rotated30.tif")
 sierra_rotated=sierra_rotated*ALTMAX  # restore height values
 
