@@ -105,14 +105,19 @@ shadowsmap=function(DEM, dx=25, dlight=c(0, 2, 3)) {
     DIMY=nrow(DEM)
     DIMX=ncol(DEM)
     
-    shadows=DEM*0  # 0=no shadow, 1=shadow (no shadow at the beginning)
+    shadows=DEM*0  # no shadows at the beginning
     for (y in 1:(DIMX-1)) {  # col DIMX excluded since it cannot get shadow from anyone
         LEN=DIMX-y+1
         dh=(LEN-1)*dx*dlightZ/dlightY
         for (x in 1:DIMY) {
             LIGHTPATH=seq(from=DEM[x,y], to=DEM[x,y]+dh, length.out=LEN)
             DELTA=DEM[x, y:DIMX]-LIGHTPATH
-            if (max(DELTA)>0) shadows[x,y]=1  # shadow if some elevation protrudes above light path
+            
+            # 4 shadow styles:
+            if (max(DELTA)>0) shadows[x,y]=1  # style='hard': shadow if some elevation protrudes above light path
+            # shadows[x,y]=shadows[x,y] + max(0,DELTA[DELTA>0])  # style='max': highest protrusion
+            # shadows[x,y]=shadows[x,y] + length(DELTA[DELTA>0])  # style='width': thickest protrusion
+            # shadows[x,y]=shadows[x,y] + sum(DELTA[DELTA>0])  # style='combined': height + width of protrusion
         }
     }
     
