@@ -114,10 +114,10 @@ shadowsmap=function(DEM, dx=25, dlight=c(0, 2, 3)) {
             DELTA=DEM[x, y:DIMX]-LIGHTPATH
             
             # 4 shadow styles:
-            if (max(DELTA)>0) shadows[x,y]=1  # style='hard': shadow=1 if some elevation protrudes above light path
+            # if (max(DELTA)>0) shadows[x,y]=1  # style='hard': shadow=1 if some elevation protrudes above light path
             # shadows[x,y]=shadows[x,y] + max(0,DELTA[DELTA>0])  # style='max': highest protrusion
             # shadows[x,y]=shadows[x,y] + length(DELTA[DELTA>0])  # style='width': thickest protrusion
-            # shadows[x,y]=shadows[x,y] + sum(DELTA[DELTA>0])  # style='combined': height + width of protrusion
+            shadows[x,y]=shadows[x,y] + sum(DELTA[DELTA>0])  # style='mixed': height + width of protrusion
         }
     }
     
@@ -131,7 +131,7 @@ shadowsmap=function(DEM, dx=25, dlight=c(0, 2, 3)) {
         shadows=t(shadows)  # transpose all
     }
     
-    return(1-shadows)  # shadow=black
+    return(1-shadows/max(shadows))  # normalize 0..1, shadow=black
     
     
     # Vectorized version: 3.36min (SLOWER than the loop version)
