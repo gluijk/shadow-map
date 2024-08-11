@@ -187,7 +187,7 @@ writePNG(shadows, "shadowsEAST2.png")
 
 # 4. CREATE SLICES
 
-NSLIDES=400  # pixels
+NSLICES=400  # pixels
 composite=readTIFF("composite.tif")
 R=composite[,,1]
 G=composite[,,2]
@@ -197,9 +197,9 @@ stepmap=composite
 Rd=R
 Gd=G
 Bd=B
-for (n in 1:NSLIDES) {
-    print(paste0(n, "/", NSLIDES, "..."))
-    z=n*ALTMAX/NSLIDES
+for (n in 1:NSLICES) {
+    print(paste0(n, "/", NSLICES, "..."))
+    z=n*ALTMAX/NSLICES
     i=which(DEM >= z)
 
     Rd[i-n]=R[i]
@@ -214,14 +214,14 @@ writeTIFF(stepmap, "stepmap.tif", bits.per.sample=16, compression="LZW")
 
 
 # B&W version
-NSLIDES=400  # pixels
+NSLICES=400  # pixels
 composite=readTIFF("tenerifecomposite2.tif")
 
 stepmap=composite
 stepmapd=stepmap
-for (n in 1:NSLIDES) {
-    print(paste0(n, "/", NSLIDES, "..."))
-    z=n*ALTMAX/NSLIDES
+for (n in 1:NSLICES) {
+    print(paste0(n, "/", NSLICES, "..."))
+    z=n*ALTMAX/NSLICES
     i=which(DEM >= z)
     
     stepmapd[i-n]=stepmap[i]
@@ -265,7 +265,7 @@ writePNG(shadows, "shadowsEAST_spike_hard2.png")
 
 # 4. CREATE SLICES
 
-NSLIDES=400  # pixels
+NSLICES=400  # pixels
 composite=readTIFF("composite_hard2.tif")
 R=composite[,,1]
 G=composite[,,2]
@@ -276,9 +276,9 @@ Rd=R
 Gd=G
 Bd=B
 ALTMAX=max(spike)
-for (n in 1:NSLIDES) {
-    print(paste0(n, "/", NSLIDES, "..."))
-    z=n*ALTMAX/NSLIDES
+for (n in 1:NSLICES) {
+    print(paste0(n, "/", NSLICES, "..."))
+    z=n*ALTMAX/NSLICES
     i=which(spike >= z)
     
     Rd[i-n]=R[i]
