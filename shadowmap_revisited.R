@@ -350,7 +350,7 @@ image(t(hillshade[nrow(hillshade):1,]), useRaster=TRUE,
 
 #################################################
 
-# 4. CALCULATE SHADOWS and APPLY TO HILLSHADE
+# 4. CALCULATE SHADOWS AND APPLY THEM TO HILLSHADE
 
 a=system.time(shadowmap(DEM, dx=RESOLUTION, dlight=c(0, 30, 5)))[3]  # 55.50s
 b=system.time(shadowmap_cpp(DEM, dx=RESOLUTION, dlight=c(0, 30, 5)))[3]  # 2.21s
@@ -366,5 +366,3 @@ for (z in seq(from=1, to=10, length.out=40)) {
     writeTIFF(hillshade*shadowsfinal, name, bits.per.sample=16, compression="LZW")
     i=i+1
 }
-
-
